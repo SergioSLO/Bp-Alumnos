@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,4 +32,27 @@ public class StudentController {
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
+
+    // Nuevo endpoint para obtener la información del estudiante y su Rockie
+    @GetMapping("/{id}/rockie")
+    public ResponseEntity<Map<String, Object>> getStudentAndRockie(@PathVariable Long id) {
+        // Obtener los datos del estudiante
+        Optional<Student> student = studentService.getStudentById(id);
+
+        if (student.isPresent()) {
+            // Obtener los datos del rockie asociados al estudiante
+            Map<String, Object> rockieData = studentService.getRockieData(id);
+
+            // Combinar la información del estudiante y del rockie en una respuesta
+            Map<String, Object> response = Map.of(
+                "student", student.get(),
+                "rockie", rockieData
+            );
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
+
