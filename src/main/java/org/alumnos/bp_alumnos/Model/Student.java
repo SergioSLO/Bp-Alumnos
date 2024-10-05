@@ -16,6 +16,9 @@ public class Student {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "RockieCoins", nullable = false)
+    private int RockieCoins;
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Activity> activities;
