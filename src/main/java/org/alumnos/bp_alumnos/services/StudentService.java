@@ -21,7 +21,7 @@ public class StudentService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     // URL de la API de Python como variable de entorno
-    private final String PYTHON_API_URL = System.getenv("PYTHON_API_URL");
+    private final String PYTHON_API_URL = "http://rockie_container:8001";
 
     // Obtener todos los estudiantes
     public List<Student> getAllStudents() {
