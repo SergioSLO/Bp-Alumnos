@@ -19,33 +19,27 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     private final RestTemplate restTemplate = new RestTemplate();
-
-    // URL de la API de Python como variable de entorno
+// con el network se podrá acceder al contenedor de python
     private final String PYTHON_API_URL = "http://rockie_container:8001";
 
-    // Obtener todos los estudiantes
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    // Crear un nuevo estudiante
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    // Obtener un estudiante por ID
     public Optional<Student> getStudentById(Long id) {
         return studentRepository.findById(id);
     }
 
-    // Obtener los datos del Rockie desde la API de Python
     public Map<String, Object> getRockieData(Long studentId) {
-        // Construir la URL con el ID del estudiante
+
         String url = UriComponentsBuilder.fromHttpUrl(PYTHON_API_URL + "/rockie/{id_estudiante}")
                 .buildAndExpand(studentId)
                 .toString();
 
-        // Realizar la solicitud GET a la API de Python
         try {
             return restTemplate.getForObject(url, HashMap.class);
         } catch (Exception e) {
