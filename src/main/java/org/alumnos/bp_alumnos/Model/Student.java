@@ -16,8 +16,8 @@ public class Student {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "RockieCoins", nullable = false)
-    private int RockieCoins;
+    @Column(name = "Rockie-coins")
+    private Integer RockieCoins = 0;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -39,6 +39,14 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getRockieCoins() {
+        return RockieCoins;
+    }
+
+    public void setRockieCoins(Integer RockieCoins) {
+        this.RockieCoins = RockieCoins;
     }
 
     public List<Activity> getActivities() {
